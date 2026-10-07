@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #ffffff;
+  --ink: #111111;
+  --accent: #2743cf;
+  --on-accent: #ffffff;
+  --surface: #f4f4f5;
+  --muted: #6b6b70;
+  --line: rgba(17,17,17,.15);
+  --radius: 8px;
+  --panel-radius: 24px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: Inter, sans-serif; font-weight: 300; }
+button, input { font: inherit; }
+::selection { background: var(--accent); color: white; }
+
+.display { font-family: "Instrument Sans", sans-serif; letter-spacing: -.04em; line-height: .98; font-weight: 600; }
+.meta { font-family: "IBM Plex Mono", monospace; font-size: 11px; line-height: 1.4; letter-spacing: .06em; text-transform: uppercase; }
+.grid-sheet { background-image: linear-gradient(to right, rgba(17,17,17,.09) 1px, transparent 1px); background-size: calc((100% - 80px) / 12) 100%; background-position: 40px 0; }
+@media (max-width: 767px) { .grid-sheet { background-image: none; } }
+
+.input-reset { outline: none; border: 1px solid var(--line); background: white; border-radius: var(--radius); }
+.input-reset:focus { border-color: var(--ink); }
+
+.wipe { position: relative; overflow: hidden; isolation: isolate; }
+.wipe::before { content: ""; position:absolute; inset:0; background:var(--ink); transform:translateX(-101%); transition:transform .2s cubic-bezier(.22,1,.36,1); z-index:-1; }
+.wipe:hover::before { transform:translateX(0); }
+.wipe:hover { color:white; }
+
+.ticket { position:relative; width:360px; aspect-ratio: 1.9/1; border:1px solid var(--line); background:#fff; overflow:hidden; }
+.ticket::before { content:""; position:absolute; left:72px; top:0; bottom:0; border-left:1px dashed rgba(17,17,17,.28); }
+.ticket-line { position:absolute; left:72px; bottom:0; height:1px; width:0; background:var(--accent); transition:width .6s cubic-bezier(.22,1,.36,1); }
+.ticket.submitted .ticket-line { width:calc(100% - 72px); }
+
+@media (max-width: 767px) {
+  .ticket { width:260px; }
+  .ticket::before { left:55px; }
+  .ticket-line { left:55px; }
+  .ticket.submitted .ticket-line { width:calc(100% - 55px); }
+}
+
+.dropzone { border:1px dashed rgba(17,17,17,.3); transition:border-color .2s ease, background .2s ease; }
+.dropzone.active, .dropzone:hover { border-color:var(--accent); background:rgba(39,67,207,.035); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; scroll-behavior:auto !important; }
+}
